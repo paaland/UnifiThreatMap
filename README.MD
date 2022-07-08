@@ -12,6 +12,6 @@ unifi_password='localUdmAdminPassword'
 To run either use docker (see `docker_build.sh` and `docker_run.sh`) or via `node server.js`
 Then navigate to http://your-ip:9999
 
-Demo running against my own Unifi UDM SE: https://map.paks.no
+Demo running against my own Unifi UDM SE: https://map.funcraft.no
 
 ![Sample alert](./threatmap.png?raw=true)

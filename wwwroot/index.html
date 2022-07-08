@@ -1,0 +1,64 @@
+<html>
+<head>
+    <title>Unifi threat map</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+        crossorigin=""/>
+
+    <style>
+        :root {
+            --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.6);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .map-tiles {
+                filter:var(--map-tiles-filter, none);
+            }
+        }
+
+        body { margin: 0; padding: 0; background-color: #000; }
+        #map { 
+            height: 100%; 
+            width: 100%;
+        }
+    </style>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        crossorigin=""></script>
+
+    <!-- Load socket.io library -->
+    <script src="/socket.io/socket.io.js"></script>    
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script>
+        const map = L.map('map').setView([59, 9], 3);
+   
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap',
+            className: 'map-tiles'
+        }).addTo(map);
+
+        const socket = io();
+   
+        //When new alert is received, put new marker on map 
+        socket.on('alert', function(msg) {
+            L.marker([msg.lat, msg.lng])
+                .addTo(map)
+                .bindPopup(msg.desc + '<br/>src: ' + msg.src + '<br/>dest: ' + msg.dest + '<br/>' + msg.country + '<br/>' + msg.org + '<br/><small>' + msg.ts + '</small>');
+       });
+
+       //Emit load event to get alert history
+       socket.emit('load');
+    </script>
+</body>

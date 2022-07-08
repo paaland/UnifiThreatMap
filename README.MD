@@ -13,3 +13,5 @@ To run either use docker (see `docker_build.sh` and `docker_run.sh`) or via `nod
 Then navigate to http://your-ip:9999
 
 Demo running against my own Unifi UDM SE: https://map.paks.no
+
+![Sample alert](./threatmap.png?raw=true)

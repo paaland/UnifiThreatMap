@@ -6,5 +6,5 @@ docker run -d --name unifithreatmap \
        -e unifi_ip=<UnifiLanIp> \
        -e unifi_username=<UnifiLocalAdminUserName> \
        -e unifi_password='<UnifiLocalAdminPassword>' \
-       paaland/unifithreatmap:latest
+       unifithreatmap:latest
 docker logs -f unifithreatmap

@@ -11,7 +11,6 @@ RUN npm ci --only=production
 
 # Bundle app source
 COPY server.js .
-COPY .env .
 COPY wwwroot wwwroot
 
 EXPOSE 9999

@@ -94,17 +94,11 @@ app.use(express.static('wwwroot'));
 
 //Setup socket.io
 io.on('connection', (socket) => {
-    console.log('client connected');
-    
     //Send alert history when client emits load event
     socket.on('load', () => {
         _alerts.forEach(alert => {
             socket.emit('alert', alert); 
         });
-    });
-
-    socket.on('disconnect', () => {
-      console.log('client disconnected');
     });
   });
 

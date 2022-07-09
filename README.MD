@@ -15,3 +15,5 @@ Then navigate to http://your-ip:9999
 Demo running against my own Unifi UDM SE: https://map.funcraft.no
 
 ![Sample alert](./threatmap.png?raw=true)
+
+Also available at Docker Hub: https://hub.docker.com/r/paaland/unifithreatmap

@@ -9,11 +9,12 @@ unifi_user=localUdmAdminUsername
 unifi_password='localUdmAdminPassword'
 ```
 
-To run either use docker (see `docker_build.sh` and `docker_run.sh`) or via `node server.js`
+To run either use docker (see `docker_build_local.sh` and `docker_run_local.sh`) or via `node server.js`
+Also available prebuilt at Docker Hub: https://hub.docker.com/r/paaland/unifithreatmap
+
 Then navigate to http://your-ip:9999
 
 Demo running against my own Unifi UDM SE: https://map.funcraft.no
 
 ![Sample alert](./threatmap.png?raw=true)
 
-Also available at Docker Hub: https://hub.docker.com/r/paaland/unifithreatmap

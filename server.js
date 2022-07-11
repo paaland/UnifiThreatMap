@@ -23,6 +23,40 @@ const udm = true;
 let _client = null;
 let _alerts = [];
 
+//Test data
+_alerts.push({
+    desc: 'Test alert',
+    country: 'Test',
+    org: 'Test',
+    ts: new Date(),
+    src: '127.0.0.1',
+    dest: '127.0.0.1',
+    lat: 59,
+    lng: 9
+});
+
+_alerts.push({
+    desc: 'Test alert2',
+    country: 'Test',
+    org: 'Test',
+    ts: new Date(),
+    src: '127.0.0.1',
+    dest: '127.0.0.1',
+    lat: 59,
+    lng: 9
+});
+
+_alerts.push({
+    desc: 'Test alert2',
+    country: 'Test',
+    org: 'Test',
+    ts: new Date(),
+    src: '127.0.0.1',
+    dest: '127.0.0.1',
+    lat: 51,
+    lng: 6
+});
+
 //Accept self signed SSL certificates on the UDM
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 

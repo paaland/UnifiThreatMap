@@ -15,21 +15,8 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
         
         <style>
-            :root {
-                --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.6);
-            }
-
-            @media (prefers-color-scheme: dark) {
-                .map-tiles {
-                    filter:var(--map-tiles-filter, none);
-                }
-            }
-
             body { margin: 0; padding: 0; background-color: #000; }
-            #map { 
-                height: 100%; 
-                width: 100%;
-            }
+            #map { height: 100%; width: 100%; }
         </style>
 
         <!-- Make sure you put this AFTER Leaflet's CSS -->
@@ -49,13 +36,12 @@
         <script>
             const socket = io();
             const map = L.map('map').setView([50, 6], 3);
-            const markers = L.markerClusterGroup();
-            
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap<br/><a href="https://github.com/paaland/UnifiThreatMap" target="_blank">Unifi Threat Map</a>',
-                className: 'map-tiles'
-            }).addTo(map);
+            const markers = L.markerClusterGroup();        
+
+            const Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+	            maxZoom: 12,
+	            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a><br/>&copy; <a href="https://openmaptiles.org/">OpenMapTiles</a><br/>&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors<br/><a href="https://github.com/paaland/UnifiThreatMap" target="_blank">Unifi Threat Map</a>'
+            }).addTo(map);;
 
             map.addLayer(markers);
 
@@ -63,10 +49,15 @@
             socket.on('alert', function(msg) {
                 markers.addLayer(
                 L.marker([msg.lat, msg.lng])
-                    .bindPopup(msg.desc + '<br/>src: ' + msg.src + '<br/>dest: ' + msg.dest + '<br/>' + msg.country + '<br/>' + msg.org + '<br/><small>' + msg.ts + '</small>'));
+                    .bindPopup(msg.desc + '<br/>src: ' 
+                        + msg.src + '<br/>dest: ' 
+                        + msg.dest + '<br/>' 
+                        + msg.country + '<br/>' 
+                        + msg.org + '<br/><small>' 
+                        + msg.ts + '</small>'));
             });
 
-            //Emit load event to get alert history
+            //Emit load event to get alert history from server
             socket.emit('load');
         </script>
     </body>

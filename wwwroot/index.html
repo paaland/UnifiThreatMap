@@ -15,6 +15,16 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
         
         <style>
+             :root {
+                --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.6);
+            }
+            
+            @media (prefers-color-scheme: dark) {
+                .map-tiles {
+                    filter:var(--map-tiles-filter, none);
+                }
+            }
+
             body { margin: 0; padding: 0; background-color: #000; }
             #map { height: 100%; width: 100%; }
         </style>
@@ -38,10 +48,11 @@
             const map = L.map('map').setView([50, 6], 3);
             const markers = L.markerClusterGroup();        
 
-            const Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-	            maxZoom: 12,
-	            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a><br/>&copy; <a href="https://openmaptiles.org/">OpenMapTiles</a><br/>&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors<br/><a href="https://github.com/paaland/UnifiThreatMap" target="_blank">Unifi Threat Map</a>'
-            }).addTo(map);;
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 12,
+                attribution: '© OpenStreetMap<br/><a href="https://github.com/paaland/UnifiThreatMap" target="_blank">Unifi Threat Map</a>',
+                className: 'map-tiles'
+            }).addTo(map);
 
             map.addLayer(markers);
 

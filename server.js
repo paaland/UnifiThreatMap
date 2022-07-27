@@ -20,6 +20,8 @@ const user = process.env.unifi_user;
 const password = process.env.unifi_password; 
 const udm = true;
 
+const MAX_EVENT_LIMIT = 100; //Max number of IDS/IDP events to remember and show on map
+
 let _client = null;
 let _alerts = [];
 
@@ -71,7 +73,7 @@ Unifi.initialize( host, user, password, port, https, udm ).then( client => {
         //Push new alart to history array, keep last 50 elements
         _alerts.push(alert);
 
-        if (_alerts.length > 50)
+        if (_alerts.length > MAX_EVENT_LIMIT)
             _alerts.shift();
 
         // Emit the alert to all connected clients
